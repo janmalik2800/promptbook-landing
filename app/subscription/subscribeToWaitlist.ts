@@ -12,6 +12,10 @@ export async function subscribeToWaitlist(email: string, placeName: string) {
     const userAgent = typeof window !== 'undefined' ? window.navigator.userAgent : undefined;
     const referrer = typeof window !== 'undefined' ? document.referrer : undefined;
 
+    if (!supabase) {
+        throw new Error('Supabase is not configured');
+    }
+
     const { error: supabaseError } = await supabase.from('WaitlistContact').insert([
         {
             email,
